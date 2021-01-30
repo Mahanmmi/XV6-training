@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 // custom system calls
 int getParentID(void);
+int getSyscallCounter(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

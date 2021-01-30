@@ -95,3 +95,13 @@ sys_getParentID(void)
 {
   return getParentID();
 }
+
+int
+sys_getSyscallCounter(void){
+  int syscallid;
+  if(argint(0, &syscallid) < 0 || syscallid >= NSYSCALL) {
+    return -1;
+  };
+  
+  return getSyscallCounter(syscallid);
+}

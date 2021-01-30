@@ -23,6 +23,8 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+// custom system calls
+int getParentID(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

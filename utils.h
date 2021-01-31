@@ -8,3 +8,13 @@ reverseInt(int number){
     }
     return rev;
 }
+
+int 
+strtol(char *s){
+  int ans = 0;
+  for(int i = 0; s[i] != 0; i++){
+    ans *= 10;
+    ans += s[i] - '0';
+  }
+  return ans;
+}

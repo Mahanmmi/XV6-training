@@ -1,15 +1,7 @@
 #include "types.h"
 #include "stat.h"
 #include "user.h"
-
-int strtol(char *s){
-  int ans = 0;
-  for(int i = 0; s[i] != 0; i++){
-    ans *= 10;
-    ans += s[i] - '0';
-  }
-  return ans;
-}
+#include "utils.h"
 
 void whatIveDone(int scid) {
   int num = getSyscallCounter(scid);

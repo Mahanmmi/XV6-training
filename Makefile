@@ -182,6 +182,7 @@ UPROGS=\
 	_wc\
 	_zombie\
 	_sys_getParentID\
+	_getChildrenTest\
 	_getSyscallCounterTest\
 
 fs.img: mkfs README $(UPROGS)
@@ -256,6 +257,7 @@ EXTRA=\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 	sys_getParentID.c\
+	getChildrenTest.c\
 	getSyscallCounterTest.c\
 
 dist:

@@ -1,5 +1,6 @@
 struct stat;
 struct rtcdate;
+struct children;
 
 // system calls
 int fork(void);
@@ -23,9 +24,10 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+
 // custom system calls
 int getParentID(void);
-char* getChildren(int pid);
+int getChildren(struct children*);
 int getSyscallCounter(int);
 
 // ulib.c

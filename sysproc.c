@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "children.h"
 
 int
 sys_fork(void)
@@ -96,14 +97,15 @@ sys_getParentID(void)
   return getParentID();
 }
 
-char*
+int
 sys_getChildren(void){
-  int pid;
 
-  if(argint(0, &pid) < 0){
-    return 0;
-  }
-  return getChildren(pid);
+  struct children *ch;
+
+  if(argptr(0, (void*)&ch, sizeof(*ch)) < 0)
+    return -1;
+  return getChildren(ch);
+  
 }
 
 

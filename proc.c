@@ -6,6 +6,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "utils.h"
 
 struct {
   struct spinlock lock;
@@ -538,6 +539,27 @@ procdump(void)
 int
 getParentID(void){
   return myproc()->parent->pid;
+}
+
+char*
+getChildren(int pid){
+  acquire(&ptable.lock);
+
+  char *children = "";
+  int index = 0;
+  for(struct proc *p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->parent->pid == pid){
+      int reverseChildId = reverseInt(p->pid);
+      while(!reverseChildId){
+        children[index++] = (reverseChildId % 10) + '0';
+        reverseChildId /= 10;
+      }
+      children[index++] = ',';
+    } 
+  }
+  release(&ptable.lock);
+
+  return children;
 }
 
 int

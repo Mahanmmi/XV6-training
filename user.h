@@ -25,6 +25,7 @@ int sleep(int);
 int uptime(void);
 // custom system calls
 int getParentID(void);
+char* getChildren(int pid);
 int getSyscallCounter(int);
 
 // ulib.c

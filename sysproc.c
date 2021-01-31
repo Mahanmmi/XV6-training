@@ -96,6 +96,17 @@ sys_getParentID(void)
   return getParentID();
 }
 
+char*
+sys_getChildren(void){
+  int pid;
+
+  if(argint(0, &pid) < 0){
+    return 0;
+  }
+  return getChildren(pid);
+}
+
+
 int
 sys_getSyscallCounter(void){
   int syscallid;

@@ -129,6 +129,7 @@ int             getChildren(struct children*);
 int             getSyscallCounter(int);
 int             changePolicy(enum schedulerMode);
 int             getTimes(struct time_data *res);
+int             getAverageTimes(struct time_data *res);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

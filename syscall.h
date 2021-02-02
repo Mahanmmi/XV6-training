@@ -25,3 +25,4 @@
 #define SYS_getSyscallCounter  24
 #define SYS_changePolicy       25
 #define SYS_getTimes           26
+#define SYS_getAverageTimes    27

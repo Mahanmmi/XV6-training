@@ -21,7 +21,7 @@ int main(){
                 for(int i=1; i <= 1000; i++){
                     printf(1, "pid:%d , i:%d\n", getpid(), i);
                 }
-                
+                                
                 struct time_data *td = malloc (sizeof (struct time_data));
 
                 getTimes(td);
@@ -31,16 +31,16 @@ int main(){
  
         }
     }
+
+    /* wait for all child to terminate */
+    while(wait() != -1) { 
+    }
+
     if(pid != 0){
         struct time_data *parentTd = malloc (sizeof (struct time_data));
         getAverageTimes(parentTd);
         printf(1, "parentId:%d, tt: %d, wt: %d, bt: %d\n", getpid(), parentTd->turn_around_time, parentTd->waiting_time, parentTd->cpu_burst_time);
         free(parentTd);
-    }
-
-
-    /* wait for all child to terminate */
-    while(wait() != -1) { 
     }
 
     exit();

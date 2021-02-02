@@ -1,9 +1,3 @@
-//Scheduler modes
-enum schedulerMode{
-  XV6 = 0,
-  RR = 1
-};
-
 // Per-CPU state
 struct cpu {
   uchar apicid;                // Local APIC ID

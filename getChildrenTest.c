@@ -1,6 +1,5 @@
 #include "types.h"
 #include "user.h"
-#include "userinput.h"
 #include "utils.h"
 
 void findTheDamnKids(){

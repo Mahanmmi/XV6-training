@@ -184,6 +184,7 @@ UPROGS=\
 	_sys_getParentID\
 	_getChildrenTest\
 	_getSyscallCounterTest\
+	_roundRobinTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -259,6 +260,7 @@ EXTRA=\
 	sys_getParentID.c\
 	getChildrenTest.c\
 	getSyscallCounterTest.c\
+	roundRobinTest.c\
 
 dist:
 	rm -rf dist

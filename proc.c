@@ -7,7 +7,6 @@
 #include "proc.h"
 #include "spinlock.h"
 #include "utils.h"
-#include "userinput.h"
 
 struct {
   struct spinlock lock;

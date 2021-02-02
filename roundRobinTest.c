@@ -18,15 +18,15 @@ int main(){
             if(pid == 0){
 
                 // loop();
-                for(int i=1; i <= 1000; i++){
-                    printf(1, "pid:%d , i:%d\n", getpid(), i);
+                for(int j=1; j <= 1000; j++){
+                    printf(1, "pid:%d , i:%d\n", getpid(), j);
                 }
-                                
+
                 struct time_data *td = malloc (sizeof (struct time_data));
 
                 getTimes(td);
-                free(td);
                 printf(1, "pid:%d, tt: %d, wt: %d, bt: %d\n", getpid(), td->turn_around_time, td->waiting_time, td->cpu_burst_time);
+                free(td);
             }
  
         }

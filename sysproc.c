@@ -6,7 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
-#include "children.h"
+#include "userinput.h"
 
 int
 sys_fork(void)

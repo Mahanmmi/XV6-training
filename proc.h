@@ -33,6 +33,14 @@ struct context {
   uint eip;
 };
 
+struct proc_time {
+  int creation_time;
+  int termination_time;
+  int running_time;
+  int ready_time;
+  int sleeping_time;
+};
+
 enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
 // Per-process state
@@ -53,6 +61,9 @@ struct proc {
 
   //Custom process properties
   int syscounter[NSYSCALL];
+  int ended_childs;
+  struct proc_time child_sum;
+  struct proc_time times;
 };
 
 // Process memory is laid out contiguously, low addresses first:

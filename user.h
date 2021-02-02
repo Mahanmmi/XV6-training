@@ -1,6 +1,7 @@
 struct stat;
 struct rtcdate;
 struct children;
+struct time_data;
 
 // system calls
 int fork(void);

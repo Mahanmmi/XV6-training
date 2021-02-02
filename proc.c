@@ -7,7 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 #include "utils.h"
-#include "children.h"
+#include "userinput.h"
 
 struct {
   struct spinlock lock;
@@ -90,6 +90,7 @@ allocproc(void)
 found:
   p->state = EMBRYO;
   p->pid = nextpid++;
+  (p->times.creation_time) = ticks;
 
   release(&ptable.lock);
 
@@ -244,6 +245,14 @@ exit(void)
     }
   }
 
+  (curproc->times).termination_time = ticks;
+  (curproc->parent->child_sum).creation_time += (curproc->times).creation_time;
+  (curproc->parent->child_sum).termination_time += (curproc->times).termination_time;
+  (curproc->parent->child_sum).running_time += (curproc->times).running_time;
+  (curproc->parent->child_sum).ready_time += (curproc->times).ready_time;
+  (curproc->parent->child_sum).sleeping_time += (curproc->times).sleeping_time;
+  (curproc->parent->ended_childs)++;
+
   begin_op();
   iput(curproc->cwd);
   end_op();
@@ -297,7 +306,10 @@ wait(void)
         p->name[0] = 0;
         p->killed = 0;
         p->state = UNUSED;
+        p->ended_childs = 0;
         memset(p->syscounter, 0, sizeof(p->syscounter));
+        memset(&(p->child_sum), 0, sizeof(struct proc_time));
+        memset(&(p->times), 0, sizeof(struct proc_time));
         release(&ptable.lock);
         return pid;
       }
@@ -566,7 +578,30 @@ getChildren(struct children *ch){
   return 0;
 }
 
+int getTimes(struct time_data) {
+  
+  return 0;
+}
+
 int
 getSyscallCounter(int syscallid){
   return (myproc()->syscounter)[syscallid];
+}
+
+void tickTimeUpdate(void) {
+  acquire(&ptable.lock);
+  for(struct proc *p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    switch (p->state){
+      case SLEEPING:
+        (p->times.sleeping_time)++;
+        break;
+      case RUNNABLE:
+        (p->times.ready_time)++;
+        break;
+      case RUNNING:
+        (p->times.running_time)++;
+        break;
+    }
+  }
+  release(&ptable.lock);
 }

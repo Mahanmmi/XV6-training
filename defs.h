@@ -10,6 +10,7 @@ struct sleeplock;
 struct stat;
 struct superblock;
 struct children;
+struct time_data;
 
 // bio.c
 void            binit(void);
@@ -111,6 +112,7 @@ int             growproc(int);
 int             kill(int);
 struct cpu*     mycpu(void);
 struct proc*    myproc();
+void            tickTimeUpdate(void);
 void            pinit(void);
 void            procdump(void);
 void            scheduler(void) __attribute__((noreturn));

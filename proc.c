@@ -579,7 +579,7 @@ getChildren(struct children *ch){
 }
 
 int getTimes(struct time_data) {
-  
+
   return 0;
 }
 
@@ -604,4 +604,12 @@ void tickTimeUpdate(void) {
     }
   }
   release(&ptable.lock);
+}
+
+int 
+changePolicy(enum schedulerMode schedulerMode){
+  pushcli();
+  mycpu()->mode = schedulerMode;
+  popcli();
+  return 0;
 }

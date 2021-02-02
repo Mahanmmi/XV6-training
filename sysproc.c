@@ -118,3 +118,12 @@ sys_getSyscallCounter(void){
   
   return getSyscallCounter(syscallid);
 }
+
+int 
+sys_changePolicy(void){
+  enum schedulerMode *schedulerMode;
+  if(argptr(0, (void*)&schedulerMode, sizeof(*schedulerMode)) < 0){
+    return -1;
+  }
+  return changePolicy(*schedulerMode);
+}

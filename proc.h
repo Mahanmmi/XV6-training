@@ -1,3 +1,9 @@
+//Scheduler modes
+enum schedulerMode{
+  XV6 = 0,
+  RR = 1
+};
+
 // Per-CPU state
 struct cpu {
   uchar apicid;                // Local APIC ID
@@ -8,7 +14,7 @@ struct cpu {
   int ncli;                    // Depth of pushcli nesting.
   int intena;                  // Were interrupts enabled before pushcli?
   struct proc *proc;           // The process running on this cpu or null
-  short mode;                  // CPU Scheduler's mode
+  enum schedulerMode mode;                  // CPU Scheduler's mode
 };
 
 extern struct cpu cpus[NCPU];

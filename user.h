@@ -2,6 +2,7 @@ struct stat;
 struct rtcdate;
 struct children;
 struct time_data;
+enum schedulerMode;
 
 // system calls
 int fork(void);
@@ -30,6 +31,7 @@ int uptime(void);
 int getParentID(void);
 int getChildren(struct children*);
 int getSyscallCounter(int);
+int changePolicy(enum schedulerMode);
 
 // ulib.c
 int stat(const char*, struct stat*);

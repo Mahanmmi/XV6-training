@@ -9,7 +9,7 @@ int main(){
     enum schedulerMode schedulerMode = RR;
     changePolicy(schedulerMode);
 
-    int pid = getpid();
+    int pid = 1;
     for(int i=0; i < 10 ; i++){
         if(pid != 0){
             pid = fork();
@@ -22,14 +22,20 @@ int main(){
                     printf(1, "pid:%d , i:%d\n", getpid(), i);
                 }
                 
-                struct time_data *td = malloc (sizeof (struct children));
+                struct time_data *td = malloc (sizeof (struct time_data));
 
                 getTimes(td);
-
+                free(td);
                 printf(1, "pid:%d, tt: %d, wt: %d, bt: %d\n", getpid(), td->turn_around_time, td->waiting_time, td->cpu_burst_time);
             }
  
         }
+    }
+    if(pid != 0){
+        struct time_data *parentTd = malloc (sizeof (struct time_data));
+        getAverageTimes(parentTd);
+        printf(1, "parentId:%d, tt: %d, wt: %d, bt: %d\n", getpid(), parentTd->turn_around_time, parentTd->waiting_time, parentTd->cpu_burst_time);
+        free(parentTd);
     }
 
 

@@ -106,9 +106,9 @@ trap(struct trapframe *tf)
      tf->trapno == T_IRQ0+IRQ_TIMER){
     struct cpu *c = mycpu();
     switch (c->mode){
-      case 0: //Default mode
+      case XV6: //Default mode
         yield();
-      case 1: //RR
+      case RR: //RR
         if(ticks % QUANTUM == 0){
           yield();
         }

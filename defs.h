@@ -10,6 +10,7 @@ struct sleeplock;
 struct stat;
 struct superblock;
 struct children;
+enum schedulerMode;
 
 // bio.c
 void            binit(void);
@@ -124,6 +125,7 @@ void            yield(void);
 int             getParentID(void);
 int             getChildren(struct children*);
 int             getSyscallCounter(int);
+int             changePolicy(enum schedulerMode);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

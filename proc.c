@@ -570,3 +570,11 @@ int
 getSyscallCounter(int syscallid){
   return (myproc()->syscounter)[syscallid];
 }
+
+int 
+changePolicy(enum schedulerMode schedulerMode){
+  pushcli();
+  mycpu()->mode = schedulerMode;
+  popcli();
+  return 0;
+}

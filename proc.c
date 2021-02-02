@@ -251,6 +251,13 @@ exit(void)
   (curproc->parent->child_sum).running_time += (curproc->times).running_time;
   (curproc->parent->child_sum).ready_time += (curproc->times).ready_time;
   (curproc->parent->child_sum).sleeping_time += (curproc->times).sleeping_time;
+
+  (curproc->parent->child_sum).creation_time += (curproc->child_sum).creation_time;
+  (curproc->parent->child_sum).termination_time += (curproc->child_sum).termination_time;
+  (curproc->parent->child_sum).running_time += (curproc->child_sum).running_time;
+  (curproc->parent->child_sum).ready_time += (curproc->child_sum).ready_time;
+  (curproc->parent->child_sum).sleeping_time += (curproc->child_sum).sleeping_time;
+
   (curproc->parent->ended_childs)++;
 
   begin_op();
@@ -582,8 +589,20 @@ int
 getTimes(struct time_data *res) {
   struct proc *p = myproc();
   res->cpu_burst_time = (p->times).running_time;
-  res->turn_around_time = (p->times).termination_time - (p->times).creation_time;
+  res->turn_around_time = -1;
   res->waiting_time = (p->times).sleeping_time;
+  return 0;
+}
+
+int
+getAverageTimes(struct time_data *res) {
+  struct proc *p = myproc();
+  if(p->ended_childs == 0){
+    return -1;
+  }
+  res->cpu_burst_time = (double)((p->child_sum).running_time) / p->ended_childs;
+  res->turn_around_time = (double)((p->child_sum).termination_time - (p->child_sum).creation_time) / p->ended_childs;
+  res->waiting_time = (double)((p->child_sum).sleeping_time) / p->ended_childs;
   return 0;
 }
 

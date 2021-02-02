@@ -116,6 +116,14 @@ int sys_getTimes(void){
   return getTimes(td);
 }
 
+int sys_getAverageTimes(void){
+  struct time_data *td;
+
+  if(argptr(0, (void*)&td, sizeof(*td)) < 0)
+    return -1;
+  return getAverageTimes(td);
+}
+
 
 int
 sys_getSyscallCounter(void){

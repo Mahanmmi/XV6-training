@@ -33,6 +33,7 @@ int getChildren(struct children*);
 int getSyscallCounter(int);
 int changePolicy(enum schedulerMode);
 int getTimes(struct time_data *res);
+int getAverageTimes(struct time_data *res);
 
 // ulib.c
 int stat(const char*, struct stat*);

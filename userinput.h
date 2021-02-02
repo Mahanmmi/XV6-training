@@ -5,7 +5,7 @@ struct children
 };
 
 struct time_data {
-    int cpu_burst_time;
-    int turn_around_time;
-    int waiting_time;
+    double cpu_burst_time;
+    double turn_around_time;
+    double waiting_time;
 };

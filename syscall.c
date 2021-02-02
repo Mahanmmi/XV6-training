@@ -108,6 +108,7 @@ extern int sys_getChildren(void);
 extern int sys_getSyscallCounter(void);
 extern int sys_changePolicy(void);
 extern int sys_getTimes(void);
+extern int sys_getAverageTimes(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]              sys_fork,
@@ -136,6 +137,7 @@ static int (*syscalls[])(void) = {
 [SYS_getSyscallCounter] sys_getSyscallCounter,
 [SYS_changePolicy]      sys_changePolicy,
 [SYS_getTimes]          sys_getTimes,
+[SYS_getAverageTimes]   sys_getAverageTimes,
 };
 
 void

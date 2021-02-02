@@ -108,6 +108,14 @@ sys_getChildren(void){
   
 }
 
+int sys_getTimes(void){
+  struct time_data *td;
+
+  if(argptr(0, (void*)&td, sizeof(*td)) < 0)
+    return -1;
+  return getTimes(td);
+}
+
 
 int
 sys_getSyscallCounter(void){

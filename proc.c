@@ -578,8 +578,12 @@ getChildren(struct children *ch){
   return 0;
 }
 
-int getTimes(struct time_data) {
-
+int
+getTimes(struct time_data *res) {
+  struct proc *p = myproc();
+  res->cpu_burst_time = (p->times).running_time;
+  res->turn_around_time = (p->times).termination_time - (p->times).creation_time;
+  res->waiting_time = (p->times).sleeping_time;
   return 0;
 }
 
@@ -600,6 +604,8 @@ void tickTimeUpdate(void) {
         break;
       case RUNNING:
         (p->times.running_time)++;
+        break;
+      default:
         break;
     }
   }

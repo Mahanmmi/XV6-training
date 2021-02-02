@@ -107,6 +107,7 @@ extern int sys_getParentID(void);
 extern int sys_getChildren(void);
 extern int sys_getSyscallCounter(void);
 extern int sys_changePolicy(void);
+extern int sys_getTimes(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]              sys_fork,
@@ -134,6 +135,7 @@ static int (*syscalls[])(void) = {
 [SYS_getChildren]       sys_getChildren,
 [SYS_getSyscallCounter] sys_getSyscallCounter,
 [SYS_changePolicy]      sys_changePolicy,
+[SYS_getTimes]          sys_getTimes,
 };
 
 void

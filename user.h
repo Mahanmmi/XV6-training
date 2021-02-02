@@ -32,6 +32,7 @@ int getParentID(void);
 int getChildren(struct children*);
 int getSyscallCounter(int);
 int changePolicy(enum schedulerMode);
+int getTimes(struct time_data *res);
 
 // ulib.c
 int stat(const char*, struct stat*);

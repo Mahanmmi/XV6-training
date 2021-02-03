@@ -52,8 +52,6 @@ trap(struct trapframe *tf)
       acquire(&tickslock);
       ticks++;
       tickTimeUpdate();
-      if(mycpu()->mode == PRIORITY)
-        sortProcPtrs();
       wakeup(&ticks);
       release(&tickslock);
     }
@@ -116,9 +114,8 @@ trap(struct trapframe *tf)
           yield();
         }
       case PRIORITY:
-        if(hasHighestPriorityProcChanged()){
+        if(findHighestPriority(c->proc) != c->proc)
           yield();
-        }
     }
     yield();
   }

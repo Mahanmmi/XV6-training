@@ -3,6 +3,7 @@ struct rtcdate;
 struct children;
 struct time_data;
 enum schedulerMode;
+struct ps_states;
 
 // system calls
 int fork(void);
@@ -34,7 +35,8 @@ int getSyscallCounter(int);
 int changePolicy(enum schedulerMode);
 int getTimes(struct time_data *res);
 int getAverageTimes(struct time_data *res);
-int setPriority(int);
+int setPriority(int, int);
+int getPsStates(struct ps_states*);
 
 // ulib.c
 int stat(const char*, struct stat*);

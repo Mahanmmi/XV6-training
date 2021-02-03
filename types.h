@@ -22,3 +22,14 @@ enum schedulerMode{
   PRIORITY
 };
 
+struct ps{
+  int pid;
+  short state; 
+  int priority;
+};
+
+struct ps_states{
+  struct ps *systemPs; 
+  int count;
+};
+

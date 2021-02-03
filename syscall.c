@@ -110,6 +110,7 @@ extern int sys_changePolicy(void);
 extern int sys_getTimes(void);
 extern int sys_getAverageTimes(void);
 extern int sys_setPriority(void);
+extern int sys_getPsStates(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]              sys_fork,
@@ -140,6 +141,7 @@ static int (*syscalls[])(void) = {
 [SYS_getTimes]          sys_getTimes,
 [SYS_getAverageTimes]   sys_getAverageTimes,
 [SYS_setPriority]       sys_setPriority,
+[SYS_getPsStates]       sys_getPsStates,
 };
 
 void

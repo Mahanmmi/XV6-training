@@ -143,13 +143,27 @@ sys_changePolicy(void){
   return changePolicy(*schedulerMode);
 }
 
-int sys_setPriority(){
-  int priority;
-  if(argint(0, &priority) <0) {
+int 
+sys_setPriority(){
+  int priority, pid;
+  if(argint(0, &pid) <0) {
     return -1;
   }
+  if(argint(1, &priority) <0) {
+    return -1;
+  }  
   if(priority > 6 || priority < 1)
     priority = 5;
 
-  return setPriority(priority);
+  return setPriority(pid, priority);
+}
+
+int
+sys_getPsStates(){
+  struct ps_states *st;
+
+  if(argptr(0, (void*)&st, sizeof(*st)) < 0)
+    return -1;
+  return getPsStates(st);
+
 }

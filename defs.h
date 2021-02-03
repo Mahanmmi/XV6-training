@@ -12,6 +12,8 @@ struct superblock;
 struct children;
 struct time_data;
 enum schedulerMode;
+struct ps_states;
+struct proc;
 
 // bio.c
 void            binit(void);
@@ -132,7 +134,9 @@ int             getSyscallCounter(int);
 int             changePolicy(enum schedulerMode);
 int             getTimes(struct time_data *res);
 int             getAverageTimes(struct time_data *res);
-int             setPriority(int);
+int             setPriority(int, int);
+int             getPsStates(struct ps_states*);
+struct proc*    findHighestPriority(struct proc*);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

@@ -27,3 +27,4 @@
 #define SYS_getTimes           26
 #define SYS_getAverageTimes    27
 #define SYS_setPriority        28
+#define SYS_getPsStates        29

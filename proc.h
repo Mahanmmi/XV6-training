@@ -64,6 +64,8 @@ struct proc {
   int ended_childs;
   struct proc_time child_sum;
   struct proc_time times;
+
+  int priority;
 };
 
 // Process memory is laid out contiguously, low addresses first:

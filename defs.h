@@ -114,6 +114,8 @@ int             kill(int);
 struct cpu*     mycpu(void);
 struct proc*    myproc();
 void            tickTimeUpdate(void);
+void            sortProcPtrs(void);
+int             hasHighestPriorityProcChanged(void);
 void            pinit(void);
 void            procdump(void);
 void            scheduler(void) __attribute__((noreturn));
@@ -130,6 +132,7 @@ int             getSyscallCounter(int);
 int             changePolicy(enum schedulerMode);
 int             getTimes(struct time_data *res);
 int             getAverageTimes(struct time_data *res);
+int             setPriority(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

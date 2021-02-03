@@ -26,3 +26,4 @@
 #define SYS_changePolicy       25
 #define SYS_getTimes           26
 #define SYS_getAverageTimes    27
+#define SYS_setPriority        28

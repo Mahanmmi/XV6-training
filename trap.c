@@ -52,6 +52,8 @@ trap(struct trapframe *tf)
       acquire(&tickslock);
       ticks++;
       tickTimeUpdate();
+      if(mycpu()->mode == PRIORITY)
+        sortProcPtrs();
       wakeup(&ticks);
       release(&tickslock);
     }
@@ -111,6 +113,10 @@ trap(struct trapframe *tf)
         yield();
       case RR: //RR
         if(ticks % QUANTUM == 0){
+          yield();
+        }
+      case PRIORITY:
+        if(hasHighestPriorityProcChanged()){
           yield();
         }
     }

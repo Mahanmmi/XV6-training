@@ -34,6 +34,7 @@ int getSyscallCounter(int);
 int changePolicy(enum schedulerMode);
 int getTimes(struct time_data *res);
 int getAverageTimes(struct time_data *res);
+int setPriority(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

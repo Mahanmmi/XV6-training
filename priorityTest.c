@@ -19,8 +19,9 @@ void printProcessStates(struct ps_states ps){
     }
 }
 int main(){
-    enum schedulerMode schedulerMode = RR;
+    enum schedulerMode schedulerMode = PRIORITY;
     changePolicy(schedulerMode);
+    setPriority(getpid(), 1);
 
     struct ps_states ps;
     ps.systemPs = malloc(64*sizeof(struct ps));
@@ -28,29 +29,35 @@ int main(){
     int pid = getpid();
     printf(1, ">>>> mypid: %d\n", pid);
 
-    for(int i=0; i<10; i++){
+    for(int i=0; i < 30; i++){
         if(pid != 0){
             pid = fork();
+            if(pid == 0) {
+                setPriority(getpid(), 6 - (i / 5) );
+                for(int j = 0; j < 250; j++) {
+                    printf(1, "child #%d: %d\n", i, j);
+                }
+            }
         }
     }
 
-    if (pid != 0) { 
-        setPriority(9, 5);
-        getPsStates(&ps);
-        printProcessStates(ps);
+    // if (pid != 0) { 
+    //     setPriority(9, 5);
+    //     getPsStates(&ps);
+    //     printProcessStates(ps);
 
-        setPriority(9, 1);
-        getPsStates(&ps);
-        printProcessStates(ps);
+    //     setPriority(9, 1);
+    //     getPsStates(&ps);
+    //     printProcessStates(ps);
 
-        setPriority(9, 50);
-        getPsStates(&ps);
-        printProcessStates(ps);
-    }
-    if(getpid() == 9){
-        getPsStates(&ps);
-        printProcessStates(ps);   
-    }
+    //     setPriority(9, 50);
+    //     getPsStates(&ps);
+    //     printProcessStates(ps);
+    // }
+    // if(getpid() == 9){
+    //     getPsStates(&ps);
+    //     printProcessStates(ps);   
+    // }
     free(ps.systemPs);
     /* wait for all child to terminate */
     while(wait() != -1) { 

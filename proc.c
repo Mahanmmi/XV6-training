@@ -351,6 +351,49 @@ findHighestPriority(struct proc *currProc){
   return highestProc;
 }
 
+struct proc* 
+findHighestMLQPriority(){
+  struct proc *highestProc = 0;
+  //choose one with highest priority
+  for(struct proc* p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state != RUNNABLE || p->queueID != 2)
+      continue;
+    
+    if(highestProc == 0){
+      highestProc = p;
+      continue;
+    }
+
+    //larger value, lower priority
+    //for is incremental so pid is automatically considered.
+    if(highestProc->priority > p->priority)  
+      highestProc = p;
+  }
+  return highestProc;
+}
+
+struct proc* 
+findLowestMLQPriority(){
+  struct proc *lowestProc = 0;
+  //choose one with lowest priority
+  for(struct proc* p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state != RUNNABLE || p->queueID != 3)
+      continue;
+    
+    if(lowestProc == 0){
+      lowestProc = p;
+      continue;
+    }
+
+    //larger value, lower priority
+    //for is incremental so pid is automatically considered.
+    if(lowestProc->priority < p->priority)  
+      lowestProc = p;
+  }
+  return lowestProc;
+}
+
+
 //PAGEBREAK: 42
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
@@ -374,11 +417,28 @@ scheduler(void)
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
+        continue;    
+      if(c->mode == MLQ && p->queueID != c->queueID)
         continue;
 
       switch(c->mode){
+        case MLQ:
+          switch (c->queueID) {
+            case 0: // XV6 Default - handled in trap
+              break;
+            case 1: // RR - handled in trap
+              break;
+            case 2: // Priority
+              p = findHighestMLQPriority();
+              break;
+            case 3: // Reverse Priority
+              p = findLowestMLQPriority();
+              break;
+          }
+          break;
         case PRIORITY:
           p = findHighestPriority(p);
+          break;
         case XV6:
         case RR:
           ;//do nothing
@@ -678,6 +738,17 @@ setPriority(int pid, int priority){
       break;
     }
   }
+  release(&ptable.lock);
+
+  return 0;
+}
+
+int
+setQueue(int queueID){
+  acquire(&ptable.lock);
+
+  myproc()->queueID = queueID;
+
   release(&ptable.lock);
 
   return 0;

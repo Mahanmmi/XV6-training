@@ -167,3 +167,12 @@ sys_getPsStates(){
   return getPsStates(st);
 
 }
+
+int 
+sys_setQueue(){
+  int queueID;
+  if(argint(0, &queueID) <0) {
+    return -1;
+  }
+  return setQueue(queueID);
+}

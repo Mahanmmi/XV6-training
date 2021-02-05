@@ -186,6 +186,7 @@ UPROGS=\
 	_getSyscallCounterTest\
 	_roundRobinTest\
 	_priorityTest\
+	_MLQTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -263,6 +264,7 @@ EXTRA=\
 	getSyscallCounterTest.c\
 	roundRobinTest.c\
 	priorityTest.c\
+	MLQTest.c\
 
 dist:
 	rm -rf dist

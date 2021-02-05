@@ -19,7 +19,8 @@ struct time_data {
 enum schedulerMode{
   XV6,
   RR,
-  PRIORITY
+  PRIORITY,
+  MLQ
 };
 
 struct ps{

@@ -8,13 +8,16 @@ struct cpu {
   int ncli;                    // Depth of pushcli nesting.
   int intena;                  // Were interrupts enabled before pushcli?
   struct proc *proc;           // The process running on this cpu or null
-  enum schedulerMode mode;                  // CPU Scheduler's mode
+
+  //Custom process properties
+  enum schedulerMode mode;     // CPU Scheduler's mode
+  int queueID;                 // MLQ current queue index
 };
 
 extern struct cpu cpus[NCPU];
 extern int ncpu;
 
-//PAGEBREAK: 17
+//PAGEBREAK: 17 
 // Saved registers for kernel context switches.
 // Don't need to save all the segment registers (%cs, etc),
 // because they are constant across kernel contexts.
@@ -66,6 +69,8 @@ struct proc {
   struct proc_time times;
 
   int priority;
+
+  int queueID;                 // MLQ queue index
 };
 
 // Process memory is laid out contiguously, low addresses first:

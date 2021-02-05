@@ -137,6 +137,9 @@ int             getAverageTimes(struct time_data *res);
 int             setPriority(int, int);
 int             getPsStates(struct ps_states*);
 struct proc*    findHighestPriority(struct proc*);
+struct proc*    findHighestMLQPriority();
+struct proc*    findLowestMLQPriority();
+int             setQueue(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

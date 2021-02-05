@@ -37,6 +37,7 @@ int getTimes(struct time_data *res);
 int getAverageTimes(struct time_data *res);
 int setPriority(int, int);
 int getPsStates(struct ps_states*);
+int setQueue(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

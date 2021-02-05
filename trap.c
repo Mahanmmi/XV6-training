@@ -109,13 +109,25 @@ trap(struct trapframe *tf)
     switch (c->mode){
       case XV6: //Default mode
         yield();
+        break;
       case RR: //RR
         if(ticks % QUANTUM == 0){
           yield();
         }
+        break;
       case PRIORITY:
         if(findHighestPriority(c->proc) != c->proc)
           yield();
+        break;
+      case MLQ:
+        if(ticks % QUANTUM == 0){
+          (c->queueID)++;
+          (c->queueID) %= 4;
+          yield();
+        } else if (c->queueID == 0) {
+          yield();
+        }
+        break;
     }
     yield();
   }

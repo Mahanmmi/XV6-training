@@ -2,26 +2,12 @@
 #include "stat.h"
 #include "user.h"
 #include "utils.h"
-char *states[6] = {
-    "UNSUED",
-    "EMBRYO",
-    "SLEEPING",
-    "RUNNABLE",
-    "RUNNING",
-    "ZOMBIE"
-};
-void printProcessStates(struct ps_states ps){
-    printf(1, ">>>mypid: %d\n", getpid());
-    printf(1, "PID Priority State\n");
-    for(int i=0; i<ps.count; i++){
-        if(ps.systemPs[i].pid != 0)
-            printf(1, "[%d] %d     %d     %s\n",getpid(), ps.systemPs[i].pid,ps.systemPs[i].priority,states[ps.systemPs[i].state]);
-    }
-}
+
 int main(){
-    enum schedulerMode schedulerMode = PRIORITY;
+    enum schedulerMode schedulerMode = MLQ;
     changePolicy(schedulerMode);
     setPriority(getpid(), 1);
+    setQueue(2);
 
     struct ps_states ps;
     ps.systemPs = malloc(64*sizeof(struct ps));
@@ -29,12 +15,13 @@ int main(){
     int pid = getpid();
     printf(1, ">>>> mypid: %d\n", pid);
 
-    for(int i=0; i < 30; i++){
+    for(int i = 0; i < 40; i++){
         if(pid != 0){
             pid = fork();
             if(pid == 0) {
-                setPriority(getpid(), 6 - (i / 5) );
-                for(int j = 0; j < 250; j++) {
+                setPriority(getpid(), 8 - (i / 5));
+                setQueue(i / 10);
+                for(int j = 0; j < 200; j++) {
                     printf(1, "child #%d: %d\n", i, j);
                 }
 
